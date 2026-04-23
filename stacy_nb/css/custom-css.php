@@ -1,16 +1,22 @@
 <?php
+/**
+ * Custom color inline CSS for Stacy NB.
+ *
+ * @package stacy-nb
+ */
+
 // define function for custom color setting
 function stacy_nb_custom_light() {
-    
-    $link_color = esc_html(get_theme_mod('link_color'));
+
+    $link_color = sanitize_hex_color( get_theme_mod( 'link_color' ) );
+    if ( empty( $link_color ) ) {
+        $link_color = '#ce1b28';
+    }
 
     list($r, $g, $b) = sscanf($link_color, "#%02x%02x%02x");
     $r = $r - 50;
     $g = $g - 25;
     $b = $b - 40;
-    if(!get_theme_mod('link_color')){
-        $link_color ='#ce1b28';
-    }
     if ( $link_color != '#ff0000' ) :
     ?>
 <style type="text/css">

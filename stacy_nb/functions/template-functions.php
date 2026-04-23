@@ -16,7 +16,7 @@ if (!function_exists('stacy_nb_center_header_type')) :
 					<?php
 					$stacy_nb_description = get_bloginfo( 'description', 'display' );
 					if ( $stacy_nb_description || is_customize_preview() ) : ?>
-						<p class="site-description"><?php echo $stacy_nb_description; ?></p>
+						<p class="site-description"><?php echo esc_html( $stacy_nb_description ); ?></p>
 					<?php endif; ?>
                 </div>
 	</div>
@@ -85,7 +85,7 @@ if($stacy_nb_header_logo_placing == 'center'){ ?>
 				<?php
 				$stacy_nb_description = get_bloginfo( 'description', 'display' );
 				if ( $stacy_nb_description || is_customize_preview() ) : ?>
-					<p class="site-description"><?php echo $stacy_nb_description; ?></p>
+					<p class="site-description"><?php echo esc_html( $stacy_nb_description ); ?></p>
 				<?php endif; ?>
 			</div>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#custom-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,7 +105,7 @@ if($stacy_nb_header_logo_placing == 'center'){ ?>
                             <?php
                             $stacy_nb_description = get_bloginfo( 'description', 'display' );
                             if ( $stacy_nb_description || is_customize_preview() ) : ?>
-                                    <p class="site-description"><?php echo $stacy_nb_description; ?></p>
+                                    <p class="site-description"><?php echo esc_html( $stacy_nb_description ); ?></p>
                             <?php endif; ?>
                     </div>
         </div>
@@ -119,7 +119,7 @@ if($stacy_nb_header_logo_placing == 'center'){ ?>
                                 <?php
                                 $stacy_nb_description = get_bloginfo( 'description', 'display' );
                                 if ( $stacy_nb_description || is_customize_preview() ) : ?>
-                                        <p class="site-description"><?php echo $stacy_nb_description; ?></p>
+                                        <p class="site-description"><?php echo esc_html( $stacy_nb_description ); ?></p>
                                 <?php endif; ?>
                         </div>
                     </div>
@@ -165,7 +165,7 @@ if($stacy_nb_header_logo_placing == 'center'){ ?>
 				<?php
 				$stacy_nb_description = get_bloginfo( 'description', 'display' );
 				if ( $stacy_nb_description || is_customize_preview() ) : ?>
-					<p class="site-description"><?php echo $stacy_nb_description; ?></p>
+					<p class="site-description"><?php echo esc_html( $stacy_nb_description ); ?></p>
 				<?php endif; ?>
 			</div>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#custom-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -367,15 +367,17 @@ endif;
 
 add_action('wp_head','stacy_nb_custom_menu_breakpoint');
 function stacy_nb_custom_menu_breakpoint() {
-	
-if(get_theme_mod('custom_color_enable') == false)
-{ $link_color = '#395ca3';
-    
-}else{
-    $link_color = esc_html(get_theme_mod('link_color', '#ce1b28'));
-}
-    
-$spicepress_menu_breakpoint = esc_html(get_theme_mod('menu_breakpoint', 1100));
+
+	if ( get_theme_mod( 'custom_color_enable' ) == false ) {
+		$link_color = '#395ca3';
+	} else {
+		$link_color = sanitize_hex_color( get_theme_mod( 'link_color', '#ce1b28' ) );
+		if ( empty( $link_color ) ) {
+			$link_color = '#ce1b28';
+		}
+	}
+
+	$spicepress_menu_breakpoint = absint( get_theme_mod( 'menu_breakpoint', 1100 ) );
  
 
 ?>
