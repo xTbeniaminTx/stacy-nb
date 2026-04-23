@@ -234,21 +234,23 @@ function stacy_nb_default_blog_type() { ?>
 		<?php } ?>
 	
 		<div class="row">
-		<?php 
-		$stacy_nb_args = array( 'post_type' => 'post','posts_per_page' => 3,'post__not_in'=>get_option("sticky_posts")) ; 	
-						query_posts( $stacy_nb_args );
-						if(query_posts( $stacy_nb_args ))
-					{	
-						while(have_posts()):the_post();
-					{ ?>
-			
+		<?php
+		$stacy_nb_args = array(
+			'post_type'      => 'post',
+			'posts_per_page' => 3,
+			'post__not_in'   => get_option( 'sticky_posts' ),
+		);
+		$stacy_nb_query = new WP_Query( $stacy_nb_args );
+		if ( $stacy_nb_query->have_posts() ) :
+			while ( $stacy_nb_query->have_posts() ) : $stacy_nb_query->the_post();
+			?>
 			<div class="col-md-4 col-sm-6 col-xs-12">
 				<article class="post wow fadeInDown animated" data-wow-delay="0.4s">
 				    <?php spicepress_blog_meta_content(); ?>
 					<header class="entry-header">
 						<h4 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h4>
 				    <?php spicepress_blog_category_content(); ?>
-					</header>		
+					</header>
 					<?php if(has_post_thumbnail()){ ?>
 					<figure class="post-thumbnail"><?php $defalt_arg =array('class' => "img-responsive");?>
 						<?php if(has_post_thumbnail()){?>
@@ -257,11 +259,15 @@ function stacy_nb_default_blog_type() { ?>
 					</figure>
 					<?php } ?>
 					<div class="entry-content">
-						<?php the_content(__('Read More','stacy-nb')); ?>
-					</div>						
+						<?php the_content( esc_html__( 'Read More', 'stacy-nb' ) ); ?>
+					</div>
 				</article>
 			</div>
-			<?php }  endwhile; } ?>
+			<?php
+			endwhile;
+			wp_reset_postdata();
+		endif;
+		?>
 		</div>
 	</div>	
 </section>
@@ -305,17 +311,19 @@ function stacy_nb_list_blog_type() { ?>
 		<?php } ?>
 
     <div class="row blog-list-layout">
-		<?php 
-		$stacy_nb_args = array( 'post_type' => 'post','posts_per_page' => 3,'post__not_in'=>get_option("sticky_posts")) ; 	
-						query_posts( $stacy_nb_args );
-						if(query_posts( $stacy_nb_args ))
-					{	
-						while(have_posts()):the_post();
-					{ ?>
-			
+		<?php
+		$stacy_nb_args = array(
+			'post_type'      => 'post',
+			'posts_per_page' => 3,
+			'post__not_in'   => get_option( 'sticky_posts' ),
+		);
+		$stacy_nb_query = new WP_Query( $stacy_nb_args );
+		if ( $stacy_nb_query->have_posts() ) :
+			while ( $stacy_nb_query->have_posts() ) : $stacy_nb_query->the_post();
+			?>
 			<div class="col-md-12 col-sm-12 col-xs-12">
 				<article class="post wow fadeInDown animated" data-wow-delay="0.4s">
-                                    <div class="media">	
+                                    <div class="media">
                                     <?php if(has_post_thumbnail()){ ?>
 					<figure class="post-thumbnail thumb-width thumb-align-left"><?php $defalt_arg =array('class' => "img-responsive");?>
 						<?php if(has_post_thumbnail()){?>
@@ -323,7 +331,7 @@ function stacy_nb_list_blog_type() { ?>
 						<?php } ?>
 					</figure>
 					<?php } ?>
-                                        
+
                                         <div class="media-body">
                                             <?php spicepress_blog_meta_content(); ?>
                                             <header class="entry-header">
@@ -331,19 +339,19 @@ function stacy_nb_list_blog_type() { ?>
                                                 <?php spicepress_blog_category_content(); ?>
                                         </header>
                                             <div class="entry-content">
-						<?php the_content(__('Read More','stacy-nb')); ?>
-					</div>	
+						<?php the_content( esc_html__( 'Read More', 'stacy-nb' ) ); ?>
+					</div>
                                         </div>
-                                        
-                                        					
+
                                     </div>
-                                    
-				    
-						
-					
+
 				</article>
 			</div>
-			<?php }  endwhile; } ?>
+			<?php
+			endwhile;
+			wp_reset_postdata();
+		endif;
+		?>
 		</div>
                 	</div>	
 </section>
