@@ -1,13 +1,12 @@
 /*
 Theme Name: Stacy NB
-Theme URI: https://example.com/stacy-nb/
-Author: Beniamin (based on Stacy by SpiceThemes)
-Author URI: https://example.com/
+Theme URI: https://wordpress.org/themes/stacy-nb/
+Author: Beniamin Tolan
+Author URI: https://profiles.wordpress.org/btolan/
 Template: spicepress
-Description: Stacy NB — fork du thème enfant "Stacy" (SpiceThemes) reconfiguré en thème enfant direct de SpicePress. Contient l'intégralité des personnalisations Stacy (variantes d'en-tête, sections blog, services, témoignages) sans passer par le thème intermédiaire. Tous les préfixes PHP ont été renommés en "stacy_nb_" pour l'isolation.
+Description: Stacy NB is a direct child theme of SpicePress, bringing Stacy-style customizations (header variants, blog layouts, services and testimonials sections) into a single, flat child-theme structure. Designed for small businesses, freelancers and personal showcase sites.
 Tags: one-column, two-columns, right-sidebar, custom-menu, custom-logo, featured-images, footer-widgets, sticky-post, threaded-comments, translation-ready, blog, e-commerce
 Version: 1.0.0
-Based on: Stacy 1.5.1
 Requires at least: 4.5
 Tested up to: 6.9
 Requires PHP: 5.4
