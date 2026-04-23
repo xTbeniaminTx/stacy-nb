@@ -27,7 +27,7 @@ qu'est Stacy NB.
 | Constantes PHP               | `STACY_*`                             | `STACY_NB_*`                             |
 | Fonctions PHP                | `stacy_*()`                           | `stacy_nb_*()`                           |
 | Text domain                  | `stacy`                               | `stacy-nb`                               |
-| Options WP                   | `theme_mods_stacy`, `stacy_user`, ... | `theme_mods_stacy_nb`, `stacy_nb_user`   |
+| Options WP                   | `theme_mods_stacy`, `stacy_user`, ... | `theme_mods_stacy-nb`, `stacy_nb_user`   |
 | Handles CSS                  | `stacy-parent-style`, ...             | `stacy-nb-parent-style`, ...             |
 | Enqueue bogué `bootstrap`    | bug `ST_TEMPLATE_DIR` non défini      | supprimé (bootstrap venait déjà du parent) |
 | Double enqueue child-style   | enqueue 2× (bug upstream)             | enqueue 1× avec dépendance parent        |
@@ -40,10 +40,10 @@ qu'est Stacy NB.
 child_stacy_nb_spice_direct/
 ├── install.sh              # Script d'installation automatique
 ├── README_STACY_NB.md      # Ce fichier
-├── stacy_nb.zip            # Archive prête à uploader dans WP
+├── stacy-nb.zip            # Archive prête à uploader dans WP
 ├── docker/                 # Stack Docker pour tester en local (WP + MariaDB + WP-CLI)
 │   └── docker-compose.yml
-├── stacy_nb/               # Sources du thème
+├── stacy-nb/               # Sources du thème
 │   ├── style.css           # Header thème + CSS custom
 │   ├── functions.php
 │   ├── header.php
@@ -97,10 +97,10 @@ chmod +x install.sh
 1. Vérifie que `wp-config.php` existe à la racine fournie
 2. Détecte WP-CLI (et propose un mode dégradé sinon)
 3. **Backup** : export DB + tar.gz des thèmes dans un dossier horodaté
-4. Déploie `stacy_nb/` dans `wp-content/themes/stacy_nb/`
+4. Déploie `stacy-nb/` dans `wp-content/themes/stacy-nb/`
 5. Ajuste les permissions au propriétaire de `wp-content/`
 6. Vérifie que SpicePress est bien installé
-7. Copie `theme_mods_stacy` → `theme_mods_stacy_nb` si le site avait déjà `stacy`
+7. Copie `theme_mods_stacy` → `theme_mods_stacy-nb` si le site avait déjà `stacy`
 8. Propose d'activer le thème
 
 ---
@@ -122,7 +122,7 @@ docker compose up -d
 - `stacy_nb_wp` : WordPress 6.9+ / Apache / PHP 8.2 (avec `WP_DEBUG=1`)
 - `stacy_nb_cli` : WP-CLI (exécution via `docker exec`)
 
-Le thème `stacy_nb/` est **monté en volume** : toute modification des fichiers
+Le thème `stacy-nb/` est **monté en volume** : toute modification des fichiers
 est visible immédiatement dans le conteneur (pas besoin de rebuild).
 
 ### Première installation
@@ -138,7 +138,7 @@ docker exec stacy_nb_cli wp core install \
 docker exec stacy_nb_cli wp theme install spicepress
 
 # 3. Activer Stacy NB
-docker exec stacy_nb_cli wp theme activate stacy_nb
+docker exec stacy_nb_cli wp theme activate stacy-nb
 ```
 
 ### URLs de test
@@ -154,7 +154,7 @@ docker exec stacy_nb_cli wp theme activate stacy_nb
 
 ```bash
 # Errors liées au thème (doit être vide)
-docker logs stacy_nb_wp 2>&1 | grep -iE "PHP (Fatal|Parse|Warning)" | grep "themes/stacy_nb"
+docker logs stacy_nb_wp 2>&1 | grep -iE "PHP (Fatal|Parse|Warning)" | grep "themes/stacy-nb"
 
 # Debug log WordPress (si présent)
 docker exec stacy_nb_wp cat /var/www/html/wp-content/debug.log 2>/dev/null || echo "(pas d'erreur)"
@@ -226,7 +226,7 @@ Le copyright est codé en dur dans `footer.php`.
 4. **Publier** (en haut à gauche) pour appliquer au site public
 
 Les réglages sont stockés dans `wp_options` sous la clé
-`theme_mods_stacy_nb` — c'est cette clé que `install.sh` duplique depuis
+`theme_mods_stacy-nb` — c'est cette clé que `install.sh` duplique depuis
 `theme_mods_stacy` lors de la migration.
 
 ---
@@ -247,13 +247,13 @@ tar -czf backup-themes-$(date +%F).tar.gz -C /var/www/html/wp-content themes
 
 **Via l'admin WordPress** :
 - *Apparence > Thèmes > Ajouter > Téléverser un thème*
-- Sélectionner `stacy_nb.zip`
+- Sélectionner `stacy-nb.zip`
 - *Installer maintenant* (ne pas encore activer)
 
 **Via SSH** :
 ```bash
-unzip stacy_nb.zip -d /var/www/html/wp-content/themes/
-chown -R www-data:www-data /var/www/html/wp-content/themes/stacy_nb/
+unzip stacy-nb.zip -d /var/www/html/wp-content/themes/
+chown -R www-data:www-data /var/www/html/wp-content/themes/stacy-nb/
 ```
 
 ### 3. Migration des theme_mods (seulement si tu utilisais déjà `stacy`)
@@ -266,7 +266,7 @@ SELECT * FROM wp_options WHERE option_name = 'theme_mods_stacy';
 
 -- Copier vers stacy_nb
 INSERT INTO wp_options (option_name, option_value, autoload)
-SELECT 'theme_mods_stacy_nb', option_value, autoload
+SELECT 'theme_mods_stacy-nb', option_value, autoload
 FROM wp_options
 WHERE option_name = 'theme_mods_stacy'
 ON DUPLICATE KEY UPDATE option_value = VALUES(option_value);
@@ -360,7 +360,7 @@ wp option delete stacy_user_with_1_3_7
 
 | Symptôme                                     | Cause probable                             | Solution                                                  |
 |----------------------------------------------|--------------------------------------------|-----------------------------------------------------------|
-| Thème invisible dans la liste WP             | Mauvais chemin d'extraction                | Vérifier `ls wp-content/themes/stacy_nb/style.css`        |
+| Thème invisible dans la liste WP             | Mauvais chemin d'extraction                | Vérifier `ls wp-content/themes/stacy-nb/style.css`        |
 | « Thème parent manquant »                    | SpicePress pas installé                    | `wp theme install spicepress`                             |
 | Site cassé (écran blanc) après activation    | Conflit avec un plugin maison              | Désactiver les plugins un par un, lire `debug.log`        |
 | Couleurs du Customizer perdues               | `theme_mods` pas migrées                   | Rejouer le SQL de la section *Migration des theme_mods*   |

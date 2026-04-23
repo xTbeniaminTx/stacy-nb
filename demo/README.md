@@ -6,7 +6,7 @@ Contenu d'exemple pour le thème Stacy NB — site vitrine fictif d'un service c
 
 - `cloud-nb-demo.xml` — export WordPress (WXR) : 5 pages, 6 articles, 3 catégories,
   1 menu
-- `theme_mods_stacy_nb.json` — réglages Customizer (header `center`, blog `list`,
+- `theme_mods_stacy-nb.json` — réglages Customizer (header `center`, blog `list`,
   copyright personnalisé)
 
 ## Contenu
@@ -38,8 +38,8 @@ wp plugin install wordpress-importer --activate
 wp import /chemin/vers/cloud-nb-demo.xml --authors=create
 
 # 3. Import des réglages Customizer (theme_mods)
-MODS=$(cat /chemin/vers/theme_mods_stacy_nb.json)
-wp option update theme_mods_stacy_nb "$MODS" --format=json
+MODS=$(cat /chemin/vers/theme_mods_stacy-nb.json)
+wp option update theme_mods_stacy-nb "$MODS" --format=json
 
 # 4. Définir la page d'accueil (trouver l'ID)
 HOME_ID=$(wp post list --post_type=page --name=accueil --field=ID)
@@ -60,8 +60,8 @@ wp menu location assign $MENU_ID primary
 5. *Apparence > Personnaliser* → Réglages page d'accueil → statique → Accueil
 6. Pour les theme_mods : via phpMyAdmin, exécuter
    ```sql
-   UPDATE wp_options SET option_value = '<contenu de theme_mods_stacy_nb.json>'
-   WHERE option_name = 'theme_mods_stacy_nb';
+   UPDATE wp_options SET option_value = '<contenu de theme_mods_stacy-nb.json>'
+   WHERE option_name = 'theme_mods_stacy-nb';
    ```
 
 ## Reset
@@ -72,6 +72,6 @@ Pour repartir d'une démo propre :
 wp db reset --yes
 wp core install --url=... --title="Cloud NB" --admin_user=admin --admin_password=admin --admin_email=admin@test.local
 wp theme install spicepress
-wp theme activate stacy_nb
+wp theme activate stacy-nb
 # puis ré-importer la démo
 ```

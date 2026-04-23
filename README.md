@@ -10,7 +10,7 @@ interdit un child-of-child.
 
 ```
 .
-├── stacy_nb/              Sources du thème (à déployer dans wp-content/themes/)
+├── stacy-nb/              Sources du thème (à déployer dans wp-content/themes/)
 ├── docker/                Stack Docker pour tester en local
 ├── demo/                  Contenu de démo (site vitrine "Cloud NB")
 ├── install.sh             Script d'installation automatique (WP-CLI)
@@ -29,7 +29,7 @@ docker exec stacy_nb_cli wp core install --url=http://localhost:8080 \
   --title="Test" --admin_user=admin --admin_password=admin \
   --admin_email=admin@test.local --skip-email
 docker exec stacy_nb_cli wp theme install spicepress
-docker exec stacy_nb_cli wp theme activate stacy_nb
+docker exec stacy_nb_cli wp theme activate stacy-nb
 ```
 
 Le site est sur http://localhost:8080 (admin `admin` / `admin`).

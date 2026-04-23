@@ -37,7 +37,7 @@ services:
     volumes:
       - wp_data:/var/www/html
       # Thème monté en lecture/écriture pour voir les modifs en live
-      - ../stacy_nb:/var/www/html/wp-content/themes/stacy_nb
+      - ../stacy-nb:/var/www/html/wp-content/themes/stacy-nb
 
   wpcli:
     image: wordpress:cli
@@ -55,7 +55,7 @@ services:
       WORDPRESS_DB_NAME: wordpress
     volumes:
       - wp_data:/var/www/html
-      - ../stacy_nb:/var/www/html/wp-content/themes/stacy_nb
+      - ../stacy-nb:/var/www/html/wp-content/themes/stacy-nb
     entrypoint: ["tail", "-f", "/dev/null"]  # on l'utilise via `docker exec`
 
 volumes:

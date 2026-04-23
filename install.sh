@@ -15,9 +15,9 @@
 #   1. Vérifie les prérequis (WP-CLI, archive zip, racine WP)
 #   2. Sauvegarde la base (wp db export)
 #   3. Sauvegarde l'arborescence wp-content/themes/
-#   4. Déploie stacy_nb dans wp-content/themes/stacy_nb/
-#   5. Copie theme_mods_stacy -> theme_mods_stacy_nb (si présent)
-#   6. Active le thème stacy_nb
+#   4. Déploie stacy-nb dans wp-content/themes/stacy-nb/
+#   5. Copie theme_mods_stacy -> theme_mods_stacy-nb (si présent)
+#   6. Active le thème stacy-nb
 #   7. Affiche les étapes manuelles restantes
 #
 # Rollback : voir README_STACY_NB.md section « Rollback »
@@ -46,10 +46,10 @@ fi
 
 WP_ROOT="$1"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ZIP_PATH="$SCRIPT_DIR/stacy_nb.zip"
-THEME_SRC_DIR="$SCRIPT_DIR/stacy_nb"
+ZIP_PATH="$SCRIPT_DIR/stacy-nb.zip"
+THEME_SRC_DIR="$SCRIPT_DIR/stacy-nb"
 BACKUP_DIR="$SCRIPT_DIR/backup-$(date +%Y%m%d-%H%M%S)"
-THEME_SLUG="stacy_nb"
+THEME_SLUG="stacy-nb"
 OLD_THEME_SLUG="stacy"
 
 # --- Vérifications -----------------------------------------------------------
@@ -136,7 +136,7 @@ if [ "$WP_CLI_AVAILABLE" = true ]; then
     OLD_MODS=$(cd "$WP_ROOT" && wp option get "theme_mods_$OLD_THEME_SLUG" --format=json 2>/dev/null || echo "")
 
     if [ -n "$OLD_MODS" ] && [ "$OLD_MODS" != "false" ] && [ "$OLD_MODS" != "[]" ]; then
-        info "Options Customizer de stacy trouvées — copie vers stacy_nb…"
+        info "Options Customizer de stacy trouvées — copie vers stacy-nb…"
         NEW_MODS=$(cd "$WP_ROOT" && wp option get "theme_mods_$THEME_SLUG" --format=json 2>/dev/null || echo "")
         if [ -n "$NEW_MODS" ] && [ "$NEW_MODS" != "false" ] && [ "$NEW_MODS" != "[]" ]; then
             warn "theme_mods_$THEME_SLUG existe déjà (non écrasé)."
