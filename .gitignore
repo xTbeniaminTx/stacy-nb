@@ -1,0 +1,21 @@
+# Artefacts de build
+*.zip
+!stacy_nb/**/*.zip
+
+# Références upstream (téléchargeables depuis wordpress.org)
+/spicepress/
+/stacy/
+
+# OS / éditeurs
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.vscode/
+.idea/
+
+# Claude Code (préférences locales)
+.claude/
+
+# Docker volumes (montés, pas versionnés)
+docker/data/
