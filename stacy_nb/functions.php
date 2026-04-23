@@ -43,10 +43,6 @@ function stacy_nb_theme_setup() {
 //Load text domain for translation-ready
 load_theme_textdomain('stacy-nb', STACY_NB_ST_TEMPLATE_DIR . '/languages');
 
-if ( is_admin() ) {
-	require STACY_NB_ST_TEMPLATE_DIR . '/admin/admin-init.php';
-}
-
 // Add default posts and comments RSS feed links to head.
 
 add_theme_support( 'automatic-feed-links' );
@@ -72,11 +68,6 @@ function stacy_nb_get_lite_options() {
 	}
 }
 add_action( 'after_switch_theme', 'stacy_nb_get_lite_options' );
-
-add_action( 'admin_init', 'stacy_nb_detect_button' );
-	function stacy_nb_detect_button() {
-	wp_enqueue_style('stacy-nb-info-button', STACY_NB_ST_TEMPLATE_DIR_URI .'/css/import-button.css');
-}
 
 if (!get_option('stacy_nb_user', false)) {
      //detect old user and set value
